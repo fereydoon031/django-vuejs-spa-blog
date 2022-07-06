@@ -4,8 +4,6 @@
 {{$store.state}}
 
 <br/>
-
-{{$route}}
   <router-view class="container"/>
 </template>
 
@@ -19,8 +17,7 @@ export default {
     NavBar
   },
   watch:{
-    $route(){
-    this.$store.commit("onStart")
+    $route(){  this.$store.commit("onStart")
     }
   },
   mounted(){

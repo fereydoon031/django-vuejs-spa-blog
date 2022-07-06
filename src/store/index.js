@@ -33,7 +33,7 @@ export default createStore({
     logout(state){
       state.isAuthenticated = false
       state.token =  ''
-      localStorage.remove("token")
+      localStorage.removeItem("token")
     },
   },
   actions: {
