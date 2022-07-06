@@ -18,14 +18,41 @@
                     <p>Please login to your account</p>
 
                     <div class="form-outline mb-4">
-                      <input v-model="username" type="email" id="form2Example11" class="form-control"
-                        placeholder="Phone number or email address"  />
-                      <label class="form-label" for="form2Example11">Username</label>
+                     <div class="col">
+                        <label class="form-label" for="form2Example11">Username</label>
+
+                        <input
+                          v-model="username"
+                          :class="{
+                            'is-invalid':usernameE === true,
+                            'is-valid':usernameE === false
+                            }"
+                          type="email"
+                          id="form2Example11"
+                          class="form-control"
+                          placeholder="Phone number or email address"/>
+                          <div class="invalid-feedback" v-if="usernameE">
+                          {{usernameEM}}
+                        </div>
+                     </div>
                     </div>
 
                     <div class="form-outline mb-4">
-                      <input v-model="password" type="password" id="form2Example22" class="form-control"  />
-                      <label class="form-label" for="form2Example22">Password</label>
+                      <div class="col">
+                        <label class="form-label" for="form2Example22">Password</label>
+                        <input
+                        v-model="password"
+                        :class="{
+                          'is-invalid' :passwordE === true,
+                          'is-valid' :passwordE === false
+                          }"
+                        type="password"
+                        id="form2Example22"
+                        class="form-control"  />
+                        <div class="invalid-feedback" v-if="passwordE">
+                          {{passwordEM}}
+                        </div>
+                      </div>
                     </div>
 
                     <div class="text-center pt-1 mb-5 pb-1">
@@ -66,14 +93,48 @@ export default {
     return{
       username: '',
       password: '',
+      usernameE: null,
+      passwordE: null,
+      usernameEM: null,
+      passwordEM: null,
     }
   },
   methods:{
     doLogin(){
+      let access = true
+      if(this.username.length <5){
+        this.usernameE=true
+         access = false
+        if(this.username.length == 0){
+          this.usernameEM = 'Username required !'
+        } else{
+          this.usernameEM = 'Username must be atleaset 5 characters !'
+        }
+      }else {
+        this.usernameE = false
+        this.usernameEM = ''
+      }
+
+
+      if(this.password.length < 6){
+        access = false
+        this.passwordE=true
+        if(this.password.length == 0){
+          this.passwordEM = 'Password required !'
+        } else{
+          this.passwordEM = 'Password must be atleaset 6 characters !'
+        }
+      }else {
+        this.passwordE = false
+        this.passwordEM = ''
+      }
+
       console.log(this.username)
       console.log(this.password)
-      //this.$store.commit("login","123456" )
-      //this.$router.push("/profile")
+      if(access){
+        this.$store.commit('login', this.username)
+        this.$router.push("/profile")
+      }
     }
   },
 }
