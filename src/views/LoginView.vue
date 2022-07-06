@@ -12,6 +12,7 @@ export default {
   methods:{
     doLogin(){
       this.$store.commit("login","123456" )
+      this.$router.push("/profile")
     }
   },
 }
