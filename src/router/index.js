@@ -3,6 +3,7 @@ import Store             from '../store'
 import HomeView          from '../views/HomeView.vue'
 import AboutView         from '../views/AboutView.vue'
 import ProfileView       from '../views/ProfileView.vue'
+import AddArticleView    from '../views/AddArticleView.vue'
 import LoginView         from '../views/LoginView.vue'
 import LogoutView        from '../views/LogoutView.vue'
 import RegisterationView from '../views/RegisterationView.vue'
@@ -28,6 +29,12 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: ProfileView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/add-article',
+    name: 'add-article',
+    component: AddArticleView,
     meta: { requiresAuth: true }
   },
   {
