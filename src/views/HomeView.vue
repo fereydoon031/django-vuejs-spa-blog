@@ -2,11 +2,10 @@
   <div class="home text-left">
     <h1> Home Page</h1>
     <article v-for="article in articles" :key="article.id">
-    
-    <h2 >{{article.title}}</h2>
+    <h2> <router-link :to="'/article/'+ article.slug">{{article.title}}</router-link></h2>
     <p>
       {{article.abstract}}
-
+      <router-link :to="'/article/'+ article.slug">Show more</router-link>
     </p>
 <hr>
     </article>

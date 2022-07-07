@@ -1,8 +1,6 @@
 <template>
 
 <NavBar/>
-{{$store.state}}
-
 <br/>
   <router-view class="container"/>
 </template>
