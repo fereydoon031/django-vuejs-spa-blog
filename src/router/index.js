@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Store from '../store'
-import HomeView    from '../views/HomeView.vue'
-import AboutView   from '../views/AboutView.vue'
-import ProfileView from '../views/ProfileView.vue'
-import LoginView   from '../views/LoginView.vue'
-import LogoutView   from '../views/LogoutView.vue'
-
+import Store             from '../store'
+import HomeView          from '../views/HomeView.vue'
+import AboutView         from '../views/AboutView.vue'
+import ProfileView       from '../views/ProfileView.vue'
+import LoginView         from '../views/LoginView.vue'
+import LogoutView        from '../views/LogoutView.vue'
+import RegisterationView from '../views/RegisterationView.vue'
 const routes = [
   {
     path: '/',
@@ -35,6 +35,11 @@ const routes = [
     component: LogoutView,
     meta: { requiresAuth: true }
 
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: RegisterationView
   },
 ]
 

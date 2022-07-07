@@ -63,7 +63,7 @@
 
                     <div class="d-flex align-items-center justify-content-center pb-4">
                       <p class="mb-0 me-2">Don't have an account?</p>
-                      <button type="button" class="btn btn-outline-danger">Create new</button>
+                      <router-link to="/register"> <button type="button" class="btn btn-outline-success" >Create new</button> </router-link> 
                     </div>
 
                   </form>
@@ -145,11 +145,12 @@ export default {
 background: #fccb90;
 
 /* Chrome 10-25, Safari 5.1-6 */
-background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+background: -webkit-linear-gradient(to right, #0054d2, #0881e9, #383cff, #0a3598);
 
 /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+background: linear-gradient(to right, #0054d2, #0881e9, #383cff, #0a3598);
 }
+
 
 @media (min-width: 768px) {
 .gradient-form {
