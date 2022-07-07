@@ -16,7 +16,7 @@
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">Content</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="content"></textarea>
+          <editor api-key="no-api-key"  v-model="content" />
         </div>
         <button type="submit" class="btn btn-primary">Add Article</button>
     </form>
@@ -24,8 +24,13 @@
 </template>
 
 <script>
+import Editor from '@tinymce/tinymce-vue'
+
 export default {
   name: 'AddArticleView',
+    components: {
+    'editor': Editor
+  },
   data() {
     let articles = localStorage.getItem('articles')
     articles = JSON.parse(articles)
@@ -45,17 +50,15 @@ export default {
       article ={
         id: this.id,
         title: this.title,
-        slug: this.title,
+        slug: this.title.replaceAll(' ','-'),
         abstract: this.abstract,
         content: this.content
       }
       this.articles.push(article)
       let database= JSON.stringify(this.articles)
       localStorage.setItem('articles',database)
-      this.$router.push('/article/' + this.slug)
-      
+      this.$router.push('/article/' + this.slug) 
     }
-  }
+  },
 }
-
 </script>
