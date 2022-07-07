@@ -18,68 +18,11 @@
 export default {
   name: 'HomeView',
   data() {
-    
+    let artcls = localStorage.getItem('articles')
+    artcls = JSON.parse(artcls)
     return {
-      articles : [{
-      id: '1',
-      title: 'title 1',
-      slug: 'title-1',
-      abstract: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.",
-      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.\n\
-                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.\n\
-                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.\n\
-                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.'
-    },
-    {
-      id: '2',
-      title: 'title 2',
-      slug: 'title-2',
-      abstract: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.",
-      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.\n\
-                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.\n\
-                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.\n\
-                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.'
-    },
-    {
-      id: '3',
-      title: 'title 3',
-      slug: 'title-3',
-      abstract: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.",
-      content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.\n\
-                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.\n\
-                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.\n\
-                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati quibusdam \n\
-                 laboriosam perferendis officia sequi praesentium illum, ut in suscipit aut \n\
-                 consequuntur, neque omnis. Qui nemo eaque exercitationem quibusdam.'
-    }]
+      articles : artcls
+     
     }
   },
 }
