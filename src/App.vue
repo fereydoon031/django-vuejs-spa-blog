@@ -3,17 +3,20 @@
 <NavBar/>
 <br/>
   <router-view class="container"/>
+  <FooterComponent/>
 </template>
 
 <script>
 // @ is an alias to /src
 import NavBar from '@/components/NavBar.vue'
+import FooterComponent from './components/FooterComponent.vue'
 
 export default {
   name: 'AppView',
   components: {
-    NavBar
-  },
+    NavBar,
+    FooterComponent
+},
   watch:{
     $route(){  this.$store.commit("onStart")
     }
