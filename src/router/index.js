@@ -4,6 +4,7 @@ import HomeView          from '../views/HomeView.vue'
 import AboutView         from '../views/AboutView.vue'
 import ProfileView       from '../views/ProfileView.vue'
 import AddArticleView    from '../views/AddArticleView.vue'
+import EditArticleView    from '../views/EditArticleView.vue'
 import LoginView         from '../views/LoginView.vue'
 import LogoutView        from '../views/LogoutView.vue'
 import RegisterationView from '../views/RegisterationView.vue'
@@ -35,6 +36,12 @@ const routes = [
     path: '/add-article',
     name: 'add-article',
     component: AddArticleView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/edit-article',
+    name: 'edit-article',
+    component: EditArticleView,
     meta: { requiresAuth: true }
   },
   {
