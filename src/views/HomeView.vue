@@ -34,9 +34,15 @@ import {
 export default {
   name: 'HomeView',
   data() {
-
+          let artcls = localStorage.getItem('articles')
+    artcls = JSON.parse(artcls)
+    if(!artcls){
+        let database= JSON.stringify(articlesData)
+        artcls = database
+        localStorage.setItem('articles',database)
+    }
     return {
-      articles : articlesData
+      articles : artcls
      
     }
   },
