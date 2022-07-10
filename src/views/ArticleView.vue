@@ -110,6 +110,7 @@ export default {
       localStorage.setItem('articles',database)
       this.$router.push('/')
       }
+
   }
 }
 </script>
