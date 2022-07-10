@@ -7,20 +7,78 @@
         </p>
     <hr>
     </article>
+     <button class="btn btn-warning mr-1" @click="edit = !edit">Edit</button>
+    <button class="btn btn-danger mr-1">Remove</button>
+    <hr>
+     <form @submit.prevent="doEdit" v-if="edit">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Title Page</label>
+          <input type="text" class="form-control" id="exampleInput1" placeholder="Your title ..." v-model="title">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Slug</label>
+          <input type="text" class="form-control" id="exampleInput1" placeholder="Your title ..." v-model="slug">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Abstract</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="abstract"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Content</label>
+          <editor api-key="no-api-key"  v-model="content" />
+        </div>
+        <button type="submit" class="btn btn-warning mb-2" >Edit Article</button>
+    </form>
   </div>
 </template>
 
 <script>
+
+import Editor from '@tinymce/tinymce-vue'
+ import {
+    articlesData
+} from "../data/articles";
+
+
+
 export default {
   name: 'ArticleView',
+  components: {
+    'editor': Editor
+  },
   data() {
-    let artcls = localStorage.getItem('articles')
-    artcls = JSON.parse(artcls)
-    let artcl = artcls.find(artcl => artcl.slug == this.$route.params.slug)
+    //let artcls = localStorage.getItem('articles')
+    //artcls = JSON.parse(artcls)
+    //let article = artcls.find(article => article.slug == this.$route.params.slug)
+    let article = articlesData.find(article => article.slug == this.$route.params.slug)
 
     return {
-      article : artcl
+      article : article,
+      edit:false,
+      title: article.title,
+      slug: article.slug,
+      abstract: article.abstract,
+      content: article.content,
     }
   },
+  methods:{
+    doEdit(){
+    let artcls = localStorage.getItem('articles')
+       artcls = JSON.parse(artcls)
+      let currentArticleIndex = artcls.findIndex(article => article.slug == this.$route.params.slug)
+      console.log('currentArticleIndex')
+      console.log(currentArticleIndex)
+      artcls[currentArticleIndex]={
+        id: currentArticleIndex,
+        title: this.title,
+        slug: this.title.replaceAll(' ','-'),
+        abstract: this.abstract,
+        content: this.content
+      }
+      let database= JSON.stringify(this.artcls)
+      localStorage.setItem('articles',database)
+      this.$router.push('/article/' +  this.artcls[currentArticleIndex].slug) 
+    },
+  }
 }
 </script>
