@@ -128,6 +128,7 @@
 
 
 <script>
+import axios from 'axios'
 export default {
   name: 'RegisterId',
   data(){
@@ -162,13 +163,13 @@ export default {
         this.nameE = false
         this.nameEM = ''
       }
-      if(this.password.length < 1){
+      if(this.password.length < 8){
         canRegister = false
         this.passwordE=true
         if(this.password.length == 0){
           this.passwordEM = 'Password required !'
         } else{
-          this.passwordEM = 'Password must be atleaset 6 characters !'
+          this.passwordEM = 'Password must be atleaset 8 characters !'
         }
       }else if(this.password !== this.passwordV) {
           this.passwordE = false
@@ -185,8 +186,37 @@ export default {
         if(this.agreeStatements===true){
           this.agreeStatementsE=false
           if(canRegister){
-            this.$store.commit('login', this.email)
-            this.$router.push("/profile") }
+
+            axios
+            .post('/api/auth/users/',{
+                username: this.name,
+                password: this.password
+              })
+            .then(response => {
+              console.log(response)
+              // this.$store.commit('login',response.data.auth_token)
+              this.$router.push("/login")
+              })
+            .catch(error=>{ console.log(error)
+              if (error.response) {
+                if( error.response.data.username){
+                  this.usernameE = true
+                  this.usernameEM = error.response.data.username.join(" ")
+                }else{
+                  this.passwordE = true
+                  this.passwordVE =true
+                  this.passwordEM = error.response.data.password.join(" ")
+                }
+              } else if (error.request) {
+                  console.log(error.request);
+              } else {
+                  console.log('Error', error.message);
+              }
+              })
+              
+           // this.$store.commit('login', this.email)
+            //this.$router.push("/profile") 
+            }
         }else if(this.agreeStatements==false){
           console.log('not checked')
           this.agreeStatementsE = true
