@@ -27,7 +27,7 @@
                             'is-invalid':usernameE === true,
                             'is-valid':usernameE === false
                             }"
-                          type="email"
+                          type="text"
                           id="form2Example11"
                           class="form-control"
                           placeholder="Phone number or email address"/>
@@ -87,6 +87,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'LogIn',
   data(){
@@ -116,7 +117,7 @@ export default {
       }
 
 
-      if(this.password.length < 6){
+      if(this.password.length < 1){
         access = false
         this.passwordE=true
         if(this.password.length == 0){
@@ -128,12 +129,38 @@ export default {
         this.passwordE = false
         this.passwordEM = ''
       }
-
-      console.log(this.username)
-      console.log(this.password)
       if(access){
-        this.$store.commit('login', this.username)
-        this.$router.push("/profile")
+        axios
+        .post('/api/auth/token/login/',{
+            username:this.username,
+            password:this.password
+          
+        })
+        .then(response => {
+       this.$store.commit('login',response.data.auth_token)
+       this.$router.push("/profile")
+      })
+      .catch(error=>{ console.log(error)
+      if (error.response) {
+        console.log('error in first if ')
+        this.usernameE  = true
+        this.passwordE  = true
+        this.usernameEM = error.response.data.non_field_errors.join(" ")
+
+    } else if (error.request) {
+        console.log('error in second if ')
+        // The request was made but no response was received
+        // Error details are stored in error.reqeust
+        console.log(error.request);
+    } else {
+        // Some other error
+        console.log('error in last els if ')
+
+        console.log('Error', error.message);
+    }
+      })
+
+        //this.$store.commit('login', this.username)
       }
     }
   },
