@@ -7,9 +7,11 @@
         </p>
     <hr>
     </article>
-     <button class="btn btn-warning mr-1" @click="edit = !edit">Edit</button>
-    <button class="btn btn-danger mr-1" @click="removeArticle">Remove</button>
-    <hr>
+    <div  v-if="$store.state.isAuthenticated">
+      <button class="btn btn-warning mr-1" @click="edit = !edit">Edit</button>
+      <button class="btn btn-danger  mr-1" @click="removeArticle">Remove</button>
+      <hr>
+    </div>
      <form @submit.prevent="doEdit" v-if="edit">
         <div class="form-group">
           <label for="exampleFormControlInput1">Title Page</label>
