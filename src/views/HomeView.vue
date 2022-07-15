@@ -26,32 +26,37 @@
 
 <script>
 
-import {
-    articlesData
-} from "../data/articles";
-
+//import {
+ //   articlesData
+//} from "../data/articles";
+import axios from "axios";
 
 export default {
   name: 'HomeView',
   data() {
-          let artcls = localStorage.getItem('articles')
-    artcls = JSON.parse(artcls)
-    if(!artcls){
-        let database= JSON.stringify(articlesData)
-        artcls = database
-        localStorage.setItem('articles',database)
-    }
     return {
-      articles : artcls
-     
+      articles : ""
     }
   },
- methods: {
-  getImgUrl: function (img) { 
-     return require('@/assets/img/details/' + img);
-  }
-}
-
+  mounted(){
+      axios
+        .get('/article/')
+        .then(response => (this.articles = response.data))
+        .catch(error=>{ console.log(error)
+          if (error.response) {
+            console.log(error.response)   
+          } else if (error.request) {
+            console.log(error.request)
+          } else {            
+            console.log('Error', error.message)
+          }
+      })
+    },
+  methods: {
+    getImgUrl: function (img) { 
+      return require('@/assets/img/details/' + img);
+    },
+  },
 }
 
 </script>
