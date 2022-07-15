@@ -18,11 +18,11 @@ export default {
     FooterComponent
 },
   watch:{
-    $route(){  this.$store.commit("onStart")
+    $route(){  this.$store.dispatch("onStart")
     }
   },
   mounted(){
-    this.$store.commit("onStart")
+    this.$store.dispatch("onStart")
   }
 }
 </script>
