@@ -7,6 +7,9 @@
         </p>
     <hr>
     </article>
+    <div v-if="deleteError">
+      <p class="alert alert-danger">Can not delete article !!!</p>
+    </div>
     <div  v-if="$store.state.isAuthenticated">
       <button class="btn btn-warning mr-1" @click="edit = !edit">Edit</button>
       <button class="btn btn-danger  mr-1" @click="removeArticle">Remove</button>
@@ -102,25 +105,17 @@ export default {
         console.log(img)
         return require('@/assets/img/details/' + img);
       },
-      /*
+      
       removeArticle(){
-      let artcls = localStorage.getItem('articles')
-      artcls = JSON.parse(artcls)
-      let currentArticleIndex
-      if(!artcls){
-          let database= JSON.stringify(articlesData)
-          localStorage.setItem('articles',database)
-          artcls = database
-          currentArticleIndex = articlesData.findIndex(article => article.slug == this.$route.params.slug)
-      }else{
-          currentArticleIndex = artcls.findIndex(article => article.slug == this.$route.params.slug)
-      }
-
-      this.artcls.splice(currentArticleIndex,1)
-      let database= JSON.stringify(this.artcls)
-      localStorage.setItem('articles',database)
-      this.$router.push('/')
-      }*/
+        axios
+          .delete(`article/${this.$route.params.slug}/`)
+          .then(response => {
+            console.log(response.data),
+            this.$router.push('/'),
+            this.deleteError = false
+            })
+          .catch(error=>(console.log(error),this.deleteError=true))
+      },
   }
 }
 </script>
