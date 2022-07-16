@@ -47,13 +47,13 @@ export default {
             console.log(error.response)   
           } else if (error.request) {
             console.log(error.request)
-          } else {            
+          } else {
             console.log('Error', error.message)
           }
       })
     },
   methods: {
-    getImgUrl: function (img) { 
+    getImgUrl: function (img) {
       return require('@/assets/img/details/' + img);
     },
   },

@@ -33,11 +33,12 @@
 <script>
 
 import Editor from '@tinymce/tinymce-vue'
- import {
+ 
+ /*import {
     articlesData
 } from "../data/articles";
-
-
+*/
+import axios from 'axios';
 
 export default {
   name: 'ArticleView',
@@ -45,30 +46,28 @@ export default {
     'editor': Editor
   },
   data() {
-    let artcls = localStorage.getItem('articles')
-    artcls = JSON.parse(artcls)
-    let article
-    if(!artcls){
-        let database= JSON.stringify(articlesData)
-        localStorage.setItem('articles',database)
-        article = articlesData.find(article => article.slug == this.$route.params.slug)
-    }else{
-        article = artcls.find(article => article.slug == this.$route.params.slug)
-    }
-
     return {
-      article : article,
+      article : "",
       edit:false,
-      artcls:artcls,
-      title: article.title,
-      slug: article.slug,
-      abstract: article.abstract,
-      content: article.content,
     }
   },
+  mounted(){
+    axios
+      .get(`article/${this.$route.params.slug}/`)
+      .then(response => ( this.article = response.data))
+      .catch(error=>{ console.log(error)
+        if (error.response) {
+          console.log(error.response)   
+        } else if (error.request) {
+          console.log(error.request)
+        } else {
+          console.log('Error', error.message)
+        }
+    })
+  },
   methods:{
+    /*
     doEdit(){
-
       let artcls = localStorage.getItem('articles')
       artcls = JSON.parse(artcls)
       let currentArticleIndex
@@ -92,7 +91,12 @@ export default {
       let database= JSON.stringify(this.artcls)
       localStorage.setItem('articles',database)
       this.$router.push('/article/' +  this.artcls[currentArticleIndex].slug)},
-      
+      */
+      getImgUrl: function (img) {
+        console.log(img)
+        return require('@/assets/img/details/' + img);
+      },
+      /*
       removeArticle(){
       let artcls = localStorage.getItem('articles')
       artcls = JSON.parse(artcls)
@@ -107,12 +111,10 @@ export default {
       }
 
       this.artcls.splice(currentArticleIndex,1)
-      
       let database= JSON.stringify(this.artcls)
       localStorage.setItem('articles',database)
       this.$router.push('/')
-      }
-
+      }*/
   }
 }
 </script>
