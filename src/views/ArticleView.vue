@@ -25,6 +25,10 @@
           <label for="exampleFormControlTextarea1">Content</label>
           <editor api-key="no-api-key"  v-model="content" />
         </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Image Url</label>
+          <input type="text" class="form-control" placeholder="Image url ..." v-model="thumb">
+        </div>
         <button type="submit" class="btn btn-warning mb-2" >Edit Article</button>
     </form>
   </div>
@@ -49,12 +53,23 @@ export default {
     return {
       article : "",
       edit:false,
+      title:'',
+      abstract:'',
+      content:'',
+      thumb:'',
     }
   },
   mounted(){
     axios
       .get(`article/${this.$route.params.slug}/`)
-      .then(response => ( this.article = response.data))
+      .then(response => {
+        this.article = response.data,
+        this.title = this.article.title,
+        this.slug = this.article.slug,
+        this.abstract = this.article.abstract,
+        this.content = this.article.content,
+        this.thumb = this.article.thumb
+        })
       .catch(error=>{ console.log(error)
         if (error.response) {
           console.log(error.response)   
@@ -66,32 +81,23 @@ export default {
     })
   },
   methods:{
-    /*
+    
     doEdit(){
-      let artcls = localStorage.getItem('articles')
-      artcls = JSON.parse(artcls)
-      let currentArticleIndex
-      if(!artcls){
-          let database= JSON.stringify(articlesData)
-          localStorage.setItem('articles',database)
-          artcls = database
-          currentArticleIndex = articlesData.findIndex(article => article.slug == this.$route.params.slug)
-      }else{
-          currentArticleIndex = artcls.findIndex(article => article.slug == this.$route.params.slug)
-      }
-
-      for (var i = 0; i < artcls.length; i++) {
-        if (i === currentArticleIndex) {
-            this.artcls[currentArticleIndex].title = this.title,
-            this.artcls[currentArticleIndex].abstract = this.abstract,
-            this.artcls[currentArticleIndex].content = this.content
-            break;
-        }
-      }
-      let database= JSON.stringify(this.artcls)
-      localStorage.setItem('articles',database)
-      this.$router.push('/article/' +  this.artcls[currentArticleIndex].slug)},
-      */
+      axios
+        .put(`article/${this.$route.params.slug}/`,{
+            title:this.title,
+            slug: this.slug,
+            abstract: this.abstract,
+            content: this.content,
+            thumb: this.thumb
+          })
+        .then(response => {
+          console.log(response.data),
+          this.$router.push('/article/' + this.slug),
+          this.edit = false
+          })
+        .catch(error=>(console.log(error),this.error=true))
+      },
       getImgUrl: function (img) {
         console.log(img)
         return require('@/assets/img/details/' + img);
