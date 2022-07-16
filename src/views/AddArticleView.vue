@@ -1,7 +1,7 @@
 <template>
   <div class="home text-left">
     <h1> Add Article Page</h1>
-    <form @submit.prevent="addArticle">
+    <form v-if="!error" @submit.prevent="addArticle">
         <div class="form-group">
           <label for="exampleFormControlInput1">Title Page</label>
           <input type="text" class="form-control" id="exampleInput1" placeholder="Your title ..." v-model="title">
@@ -18,14 +18,21 @@
           <label for="exampleFormControlTextarea1">Content</label>
           <editor api-key="no-api-key"  v-model="content" />
         </div>
+          <div class="form-group">
+          <label for="exampleFormControlInput1">Thumbnail</label>
+          <input type="text" class="form-control" placeholder="image address ..." v-model="thumb">
+        </div>
         <button type="submit" class="btn btn-primary">Add Article</button>
     </form>
+    <div v-if="error">
+      <div class="alert alert-danger">There are something wrongs</div>
+    </div>
   </div>
 </template>
 
 <script>
 import Editor from '@tinymce/tinymce-vue'
-
+import axios from 'axios'
 export default {
   name: 'AddArticleView',
     components: {
@@ -38,26 +45,26 @@ export default {
     return{
     articles:articles,
     title: '',
-    id: '',
     slug: '',
     abstract: '',
     content: '',
+    thumb: '',
+    error:false,
     }
   },
   methods:{
     addArticle(){
-      let article 
-      article ={
-        id: this.id,
-        title: this.title,
-        slug: this.title.replaceAll(' ','-'),
-        abstract: this.abstract,
-        content: this.content
-      }
-      this.articles.push(article)
-      let database= JSON.stringify(this.articles)
-      localStorage.setItem('articles',database)
-      this.$router.push('/article/' + this.slug) 
+      axios
+        .post('/article/',{
+              title:this.title,
+              slug: this.slug,
+              abstract: this.abstract,
+              content: this.content,
+              thumb: this.thumb
+          })
+        .then(response => {console.log(response.data),this.$router.push('/article/' + this.slug)})
+        .catch(error=>(console.log(error),this.error=true))
+      
     }
   },
 }
